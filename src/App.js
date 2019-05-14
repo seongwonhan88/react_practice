@@ -26,6 +26,7 @@ class App extends Component {
 
     person.name = event.target.value;
 
+    //copy and insert into an array
     const persons = [...this.state.persons];
     persons[personIndex] = person;
 
@@ -35,6 +36,7 @@ class App extends Component {
   deletePersonHandler = (personIndex) => {
     // const persons = this.state.persons.slice();
     const persons = [...this.state.persons];    
+    // splice removes 1 
     persons.splice(personIndex, 1);
     this.setState({persons: persons})
   }
