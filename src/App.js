@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Radium from 'radium';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -35,10 +36,10 @@ class App extends Component {
 
   deletePersonHandler = (personIndex) => {
     // const persons = this.state.persons.slice();
-    const persons = [...this.state.persons];    
+    const persons = [...this.state.persons];
     // splice removes 1 
     persons.splice(personIndex, 1);
-    this.setState({persons: persons})
+    this.setState({ persons: persons })
   }
 
   togglePersonsHandler = () => {
@@ -47,12 +48,16 @@ class App extends Component {
   }
   render() {
     const style = {
-      backgroundColor: 'white',
-      color: 'green',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
     };
 
     let persons = null;
@@ -61,18 +66,22 @@ class App extends Component {
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
-            return <Person 
-            name={person.name} 
-            age={person.age}
-            click={() => this.deletePersonHandler(index)}
-            key={person.id}
-            changed={(event) => this.nameChangedHandler(event, person.id)}
+            return <Person
+              name={person.name}
+              age={person.age}
+              click={() => this.deletePersonHandler(index)}
+              key={person.id}
+              changed={(event) => this.nameChangedHandler(event, person.id)}
             />
           })}
-        
+
         </div>
       );
       style.backgroundColor = 'red';
+      style[':hover'] = {
+        backgroundColor: 'lightred',
+        color: 'white'
+      }
     }
 
     let classes = [];
@@ -91,10 +100,10 @@ class App extends Component {
         <button
           style={style}
           onClick={this.togglePersonsHandler}>Toggle Persons</button>
-          {persons}
+        {persons}
       </div>
     );
   }
 }
 
-export default App;
+export default Radium(App);
